@@ -9,16 +9,10 @@ class Comment extends Model
 {
     use HasFactory;
 
-    public function postBy(){
-        return $this->belongsTo('App\Models\User');
+    public function commentBy(){
+        return $this->belongsTo('App\Models\User', 'id');
     }
-    public function commentTo(){
-        return $this->belongsTo('App\Models\Post');
-    }
-    public function commentTo(){
-        return $this->belongsTo('App\Models\Post');
-    }
-    public function comments(){
-        return $this->hasMany('App\Models\Comment');
+    public function commentOn(){
+        return $this->belongsTo('App\Models\Post', 'id');
     }
 }

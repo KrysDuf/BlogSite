@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Role;
 
 class UserTableSeeder extends Seeder
 {
@@ -14,6 +15,12 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory()->count(30)->create(); 
+        User::factory()->count(10)->create(); 
+        $roles = Role::all();
+        User::all()->each(function ($user) use ($roles) { 
+            $user->roles()->attach(
+                $roles->random(rand(1, 5))->pluck('id')->toArray()
+            ); 
+        });
     }
 }

@@ -12,7 +12,13 @@ class User extends Model
     public function posts(){
         return $this->hasMany('App\Models\Post');
     }
-    public function commentss(){
+    public function comments(){
         return $this->hasMany('App\Models\Comment');
+    }
+    public function roles(){
+        return $this->belongsToMany('App\Models\Role');
+    }
+    public function login(){
+        return $this->belongsTo('App\Models\Login');
     }
 }
