@@ -27,11 +27,15 @@ class AdminsController extends Controller
         }elseif($request->chkP == "false" and $user->roles->contains("role", "poster")){
             $user->roles()->detach(1); 
         }
+
+
         if($request->chkM == "true" and !$user->roles->contains("role", "moderator")){
             $user->roles()->attach(2); 
         }elseif($request->chkM == "false" and $user->roles->contains("role", "moderator")){
             $user->roles()->detach(2); 
         }
+
+        
         if($request->chkA == "true" and !$user->roles->contains("role", "admin")){
             $user->roles()->attach(3); 
         }elseif($request->chkA == "false" and $user->roles->contains("role", "admin")){
