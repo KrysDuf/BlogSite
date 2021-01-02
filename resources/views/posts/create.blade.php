@@ -5,10 +5,17 @@
 @endsection
 
 @section('content')
-<form action="{{route('posts.store')}}" method="post">
+<form id="postForm" action="{{route('posts.store')}}" method="post" enctype="multipart/data">
     @csrf
-    <input id="title" type="text" class="form-control"/>
-    <input id="body" type="text" class="form-control"/>
-    <button type="submit">Comment</button>
+    <div class="form-group">
+        <input type="text" id="title" name="title" placeholder="title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <textarea id="body" name="body" placeholder="body" rows="10" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <input type="file" id="image" name="image" placeholder="image" class="form-control"/>
+    </div>
+    <button class="btn btn-primary" type="submit">Comment</button>
 </form>
 @endsection

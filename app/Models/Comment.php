@@ -9,8 +9,11 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $table = 'comments';
+    protected $fillable = ['post_id', 'user_id', 'body'];
+
     public function commentBy(){
-        return $this->belongsTo('App\Models\User', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
     public function commentOn(){
         return $this->belongsTo('App\Models\Post', 'id');

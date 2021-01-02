@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 
 class PostsController extends Controller
 {
@@ -14,13 +15,12 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all()->sortByDesc('created_at')->get();
+        $posts = Post::all()->sortByDesc('created_at');
         return view('posts.index', ['posts' => $posts]);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -30,7 +30,6 @@ class PostsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -38,9 +37,18 @@ class PostsController extends Controller
     {
         $this->validate($request,[
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'image' => 'image|nullable'
         ]);
-        return "";
+
+        $post = new Post;
+        $post ->user_id = auth()->user()->id;
+        $post ->title = $request->input('title');
+        $post ->body = $request->input('body');
+        $post ->image = $request->input('image');
+        $post ->save();
+
+        return redirect('/posts');
     }
 
     /**
@@ -63,7 +71,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -75,7 +84,17 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        $post = Post::find($id); 
+        $post ->title = $request->input('title');
+        $post ->body = $request->input('body');
+        $post ->save();
+
+        return redirect("/posts/$id");
     }
 
     /**
@@ -86,6 +105,24 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id); 
+        $post ->delete();
+        return redirect("/posts");       
+    }
+
+    public function comment(Request $request, $id)
+    {
+        $this->validate($request,[
+            'body' => 'required'
+        ]);
+
+        Comment::create([
+            'body' => request('body'),
+            'post_id' => 1,
+            'user_id' => auth()->user()->id
+        ]);
+
+        $post = Post::find($id);
+        return view('posts.post', ['post' => $post]); 
     }
 }
