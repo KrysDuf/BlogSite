@@ -9,8 +9,12 @@
 <form id="postForm" action="{{route('posts.update', [$post->id])}}" method="POST">
     @csrf
     @method('PATCH')
-    <input type="text" value="{{$post->title}}" id="title" name="title" placeholder="title" class="form-control"/>
-    <input type="text" value="{{$post->body}}" id="body" name="body" placeholder="body" class="form-control"/>
+    <div class="form-group">
+        <input type="text" value="{{$post->title}}" id="title" name="title" placeholder="title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <textarea id="body" name="body" value="{{$post->body}}" placeholder="body" rows="10" class="form-control"></textarea>
+    </div>
     <button class="btn btn-primary" type="submit">Save Edit</button>
 </form>
 @endsection

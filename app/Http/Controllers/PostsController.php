@@ -38,14 +38,20 @@ class PostsController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'body' => 'required',
-            'image' => 'image|nullable'
         ]);
 
         $post = new Post;
         $post ->user_id = auth()->user()->id;
         $post ->title = $request->input('title');
         $post ->body = $request->input('body');
-        $post ->image = $request->input('image');
+        if($request->hasFile('image')){
+            //$path = 'images';
+            $image = $request->file('image');
+            //$name = $image->getClientOriginalName();
+            $post->image = $request->file('image')->store('images');
+            //$post->image = $name;         
+        }
+               
         $post ->save();
 
         return redirect('/posts');
@@ -110,19 +116,8 @@ class PostsController extends Controller
         return redirect("/posts");       
     }
 
-    public function comment(Request $request, $id)
-    {
-        $this->validate($request,[
-            'body' => 'required'
-        ]);
 
-        Comment::create([
-            'body' => request('body'),
-            'post_id' => 1,
-            'user_id' => auth()->user()->id
-        ]);
 
-        $post = Post::find($id);
-        return view('posts.post', ['post' => $post]); 
-    }
+    
+
 }
