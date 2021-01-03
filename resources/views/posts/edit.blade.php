@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Posts
+    Edit Post
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
         <input type="text" value="{{$post->title}}" id="title" name="title" placeholder="title" class="form-control" />
     </div>
     <div class="form-group">
-        <textarea id="body" name="body" value="{{$post->body}}" placeholder="body" rows="10" class="form-control"></textarea>
+        <textarea id="body" name="body" placeholder="body" rows="10" class="form-control">{{$post->body}}</textarea>
     </div>
     <button class="btn btn-primary" type="submit">Save Edit</button>
 </form>

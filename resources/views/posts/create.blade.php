@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Posts
+    Create Post
 @endsection
 
 @section('content')
@@ -14,6 +14,7 @@
         <textarea id="body" name="body" placeholder="body" rows="10" class="form-control"></textarea>
     </div>
     <input type="file" id="image" name="image" />
-    <button class="btn btn-primary" type="submit">Comment</button>
+    <br>
+    <button class="btn btn-primary" style="margin-top:8px;" type="submit">Comment</button>
 </form>
 @endsection

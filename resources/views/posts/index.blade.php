@@ -36,7 +36,7 @@
                     <a href="/posts/{{$post->id}}/edit">
                         <button class="btn btn-primary notToolbar">Edit</button>
                     </a>
-                    @endif  
+                @endif  
                 @if(Auth::user()->id == $post->user_id or Auth::user()->roles->contains("role", "moderator"))
                     <form action="{{ route('posts.destroy', $post->id)}}" method="POST">
                         @csrf

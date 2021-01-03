@@ -30,35 +30,25 @@ class CommentsController extends Controller
         return response()->json($comment);
     }
 
-    public function edit(Request $request, $id)
+    public function edit($post_id, $comment_id)
     {
-        $this->validate($request,[
-            'body' => 'required'
-        ]);
-
-        Comment::create([
-            'body' => request('body'),
-            'post_id' => $id,
-            'user_id' => auth()->user()->id
-        ]);
-
-        $post = Post::find($id);
-        return view('posts.post', ['post' => $post]); 
+        $comment = Comment::find($comment_id);
+        return view('comments.edit', ['comment' => $comment]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $comment_id)
     {
         $this->validate($request,[
-            'title' => 'required',
             'body' => 'required'
         ]);
 
-        $post = Post::find($id); 
-        $post ->title = $request->input('title');
-        $post ->body = $request->input('body');
-        $post ->save();
+        $comment = Comment::find($comment_id); 
+        $comment ->body = $request->input('body');
+        $comment ->save();
 
-        return redirect("/posts/$id");
+        $post_id = $comment->commentOn->id;
+
+        return redirect("/posts/$post_id");
     }
     public function destroy($post_id, $comment_id)
     {

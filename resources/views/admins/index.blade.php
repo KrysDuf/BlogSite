@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Post
+    Admin Area
 @endsection
 
 @section('content')
@@ -53,7 +53,6 @@
                 let chkP = document.getElementById('chkP'+current_id).checked
                 let chkM = document.getElementById('chkM'+current_id).checked
                 let chkA = document.getElementById('chkA'+current_id).checked
-                alert(chkP + " " + chkM + " " + chkA )
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -68,8 +67,8 @@
                         chkM:chkM,
                         chkA:chkA
                     },
-                    error: function() { 
-                        location.reload();
+                    success: function(){
+                        current_id = null;
                     }
                 });
             });
@@ -77,3 +76,4 @@
         
         </script> 
 @endsection
+

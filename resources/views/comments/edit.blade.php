@@ -1,15 +1,17 @@
 @extends('layouts.app')
 
 @section('title')
-    Posts
+    Edit Comment
 @endsection
 
 @section('content')
 
-<form id="commentForm" action="{{route('comments.update', [$post->id, $comment->id])}}" method="POST">
+<form id="commentForm" action="{{route('comments.update', [$comment->id])}}" method="POST">
     @csrf
     @method('PATCH')
-    <input type="text" value="{{$post->body}}" id="body" name="body" placeholder="body" class="form-control"/>
+    <div class="form-group">
+        <textarea id="body" name="body" placeholder="body" rows="10" class="form-control">{{$comment->body}}</textarea>
+    </div>
     <button class="btn btn-primary" type="submit">Save Edit</button>
 </form>
 @endsection

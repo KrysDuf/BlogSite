@@ -86,19 +86,21 @@
         <h3>{{$comment->body}}</h3>
         <h6>Comment By: {{$comment->commentBy->name}}</h6>
         <h6>Replied at: {{$comment->created_at}}</h6>
-        @if(!Auth::guest())
-            @if(Auth::user()->id == $comment->user_id)
-                <div class="commandBar">
-                    <a href="/posts/{{$post->id}}/edit">
-                        <button class="btn btn-primary notToolbar">Edit</button>
-                    </a>
-                    <form action="{{ route('comments.destroy', [$post->id, $comment->id])}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-primary notToolbar" type="submit">Delete</button>
-                    </form>
-                </div>
-            @endif
+        @if(!Auth::guest())     
+            <div class="commandBar">
+                @if(Auth::user()->id == $comment->user_id)
+                <a href="/posts/{{$post->id}}/comment/{{$comment->id}}/edit">
+                    <button class="btn btn-primary notToolbar">Edit</button>
+                </a>
+                @endif  
+                @if(Auth::user()->id == $comment->user_id or Auth::user()->roles->contains("role", "moderator"))
+                <form action="{{ route('comments.destroy', [$post->id, $comment->id])}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-primary notToolbar" type="submit">Delete</button>
+                </form>
+                @endif
+            </div>
         @endif
     </div>      
     @endforeach
