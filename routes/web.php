@@ -25,7 +25,7 @@ Route::resource('posts', 'PostsController');
 route::get('posts/{post}/comment', [CommentsController::class, 'create'])->name('comments.create');
 route::patch('posts/{post}/comment', [CommentsController::class, 'update'])->name('comments.update');
 route::get('posts/{post}/comment/{comment}/edit', [CommentsController::class, 'edit'])->name('comments.edit');
-route::delete('posts/{post}/comment/{comment}', [CommentsController::class, 'destroy'])->name('comments.destroy');
+route::delete('comment/{comment}', [CommentsController::class, 'destroy'])->name('comments.destroy');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 

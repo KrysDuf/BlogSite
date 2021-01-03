@@ -24,7 +24,7 @@
         <div class="row" style="padding-bottom:8px;">
             @if($post->image != null)
                 <div class="col-md-2">
-                    <img src="/storage/{{$post->image}}" style="width: 100%">
+                    <img src="/storage/{{$post->image->image}}" style="width: 100%">
                 </div>
             @endif
             <div class="col-md-9" style="margin-left: 20px">
@@ -94,7 +94,7 @@
                 </a>
                 @endif  
                 @if(Auth::user()->id == $comment->user_id or Auth::user()->roles->contains("role", "moderator"))
-                <form action="{{ route('comments.destroy', [$post->id, $comment->id])}}" method="POST">
+                <form action="{{ route('comments.destroy', $comment->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-primary notToolbar" type="submit">Delete</button>

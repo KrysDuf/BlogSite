@@ -15,6 +15,6 @@
     </div>
     <input type="file" id="image" name="image" />
     <br>
-    <button class="btn btn-primary" style="margin-top:8px;" type="submit">Comment</button>
+    <button class="btn btn-primary" style="margin-top:8px;" type="submit">Create Post</button>
 </form>
 @endsection

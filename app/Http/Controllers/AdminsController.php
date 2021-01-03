@@ -21,7 +21,7 @@ class AdminsController extends Controller
 
     public function roleChange(Request $request){
 
-        $user = User::Find($request->user_id);
+        $user = User::Find($request->change_id);
         if($request->chkP == "true" and !$user->roles->contains("role", "poster")){
             $user->roles()->attach(1); 
         }elseif($request->chkP == "false" and $user->roles->contains("role", "poster")){
@@ -38,6 +38,6 @@ class AdminsController extends Controller
             $user->roles()->detach(3); 
         }
      
-        return response()->json($user);
+        return response($user->id);
     }
 }

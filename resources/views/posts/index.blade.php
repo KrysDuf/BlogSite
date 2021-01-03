@@ -18,7 +18,7 @@
             <div class="row" style="padding-bottom:8px;">
                 @if($post->image != null)
                     <div class="col-md-2">
-                        <img src="/storage/{{$post->image}}" style="width: 100%">
+                        <img src="/storage/{{$post->image->image}}" style="width: 100%">
                     </div>
                 @endif
                 <div class="col-md-9" style="margin-left: 20px">

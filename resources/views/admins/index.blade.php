@@ -44,6 +44,7 @@
     
         $(document).ready(function(){
             $("#usersForm").submit(function(e) {
+                
                 if(current_id == null){
                     return false;
                 }
@@ -62,12 +63,15 @@
                     method:"POST",
                     url:"{{route('admin.roleChange')}}",      
                     data: {
-                        user_id:current_id,
+                        change_id:current_id,
                         chkP:chkP,
                         chkM:chkM,
                         chkA:chkA
                     },
-                    success: function(){
+                    error: function() { 
+                        location.reload();
+                    },
+                    success: function(user){
                         current_id = null;
                     }
                 });

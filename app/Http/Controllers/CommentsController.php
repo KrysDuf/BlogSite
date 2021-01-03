@@ -50,10 +50,12 @@ class CommentsController extends Controller
 
         return redirect("/posts/$post_id");
     }
-    public function destroy($post_id, $comment_id)
+    public function destroy($comment_id)
     {
+        error_log('Some message here.');
         $comment = Comment::find($comment_id); 
-        $comment ->delete();
-        return redirect("/posts/$post_id");       
+        $post = $comment->commentOn;
+        $comment -> delete();
+        return redirect("/posts/$post->id");       
     }
 }

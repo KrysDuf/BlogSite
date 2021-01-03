@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\Image;
 use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
@@ -47,13 +48,18 @@ class PostsController extends Controller
         $post ->body = $request->input('body');
         if($request->hasFile('image')){
             //$path = 'images';
-            $image = $request->file('image');
-            //$name = $image->getClientOriginalName();
-            $post->image = $request->file('image')->store('images');
-            //$post->image = $name;         
+            $post ->save();
+
+            $image = new Image;
+            $image->image = $request->file('image')->store('images');
+            $image->post_id = $post -> id;
+            $image->save();
+  
+        }else{
+            $post ->save();
         }
                
-        $post ->save();
+        
 
         return redirect('/posts');
     }

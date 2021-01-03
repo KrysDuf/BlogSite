@@ -2,9 +2,9 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <style>
-        .commandBar{
-    margin-right: 40px;
-    height:35px;
+    .commandBar{
+        margin-right: 40px;
+        height:35px;
     }
 
     .commandBar button{
