@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\AdminsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +18,18 @@ Route::get('/', function () {
     return redirect("/home");
 });
 
+
+
+Route::post('/storeComment', [CommentsController::class, 'store'])->name('comments.store');
 Route::resource('posts', 'PostsController');
 route::get('posts/{post}/comment', [CommentsController::class, 'create'])->name('comments.create');
-route::post('posts/{post}/comment', [CommentsController::class, 'store'])->name('comments.store');
 route::delete('posts/{post}/comment/{comment}', [CommentsController::class, 'destroy'])->name('comments.destroy');
 
-//Route::get('/', [PostsController::class, 'index'])->name('posts.index');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+
+Route::post('/admin/roleChange', [App\Http\Controllers\AdminsController::class, 'roleChange'])->name('admin.roleChange')->middleware('auth');
+Route::get('/admin', [App\Http\Controllers\AdminsController::class, 'index'])->name('admin')->middleware('auth');
+
 
 Auth::routes();
 

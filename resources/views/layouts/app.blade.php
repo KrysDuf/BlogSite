@@ -34,6 +34,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -62,7 +65,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="">Home</a>
+                            <a class="nav-link" href="/home">Home</a>
                         </li>  
                         <li class="nav-item">
                             <a class="nav-link" href="/posts">Posts</a>
@@ -81,12 +84,16 @@
                                 </li>
                             @endif
                         @else
-                        
+                        @if (Auth::user()->roles->contains("role", "admin"))
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin">Admin</a>
+                            </li>
+                        @endif                    
                                           
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">                           
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -106,6 +113,7 @@
         </nav>
 
         <main class="py-4" style="margin-left: 40px; margin-right: 40px;">
+            @include('alerts.alerts')
             @yield('content')
         </main>
     </div>

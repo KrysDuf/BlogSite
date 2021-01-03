@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
         $roles = Role::all();
         User::all()->each(function ($user) use ($roles) { 
             $user->roles()->attach(
-                $roles->random(rand(1, 5))->pluck('id')->toArray()
+                $roles->random(rand(3, 3))->pluck('id')->toArray()
             ); 
         });
     }

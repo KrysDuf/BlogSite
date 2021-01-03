@@ -14,20 +14,20 @@ class CommentsController extends Controller
         return view('comments.create', ['post' => $post]);
     }
 
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        $this->validate($request,[
-            'body' => 'required',
-        ]);
+        // $this->validate($request,[
+        //     'body' => 'required',
+        // ]);
 
         $comment = new Comment;
         $comment ->user_id = auth()->user()->id;
-        $comment ->post_id = $id;
-        $comment ->body = $request->input('body');
+        $comment ->post_id = $request->post_id;
+        $comment ->body = $request->body;
      
         $comment ->save();
 
-        return redirect("/posts/$id");
+        return response()->json($comment);
     }
 
     public function edit(Request $request, $id)

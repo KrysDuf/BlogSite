@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
+use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
 {
@@ -15,7 +16,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all()->sortByDesc('created_at');
+        $posts = Post::with('postBy')->paginate(5);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -115,9 +116,4 @@ class PostsController extends Controller
         $post ->delete();
         return redirect("/posts");       
     }
-
-
-
-    
-
 }
